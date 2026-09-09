@@ -1,11 +1,11 @@
-# auditing-a11y
+# a11y
 
 **APG a11y** for any UI stack (React, Vue, Angular, Svelte, plain HTML, design systems). Auto-applies on **every UI compose** (components / HTML / templates) **and** on accessibility audit, APG review, keyboard/screen-reader debug, or ARIA validation.
 
-**Version:** 1.1.0 · **Hub:** [`SKILL.md`](./SKILL.md)
+**Version:** 1.2.0 · **Hub:** [`SKILL.md`](./SKILL.md)
 
 ```bash
-npx skills add equinusocio/skills --skill auditing-a11y
+npx skills add equinusocio/skills --skill a11y
 ```
 
 ← [All skills](../../README.md)

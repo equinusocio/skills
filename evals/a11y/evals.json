@@ -1,5 +1,5 @@
 {
-  "skill_name": "auditing-a11y",
+  "skill_name": "a11y",
   "evals": [
     {
       "id": 1,
@@ -7,7 +7,7 @@
       "expected_output": "Before patterns/report: reads APG Read Me First. Then structured APG audit: inventory, project-map/roles/properties, fetch only in-scope pattern URLs (never example-index), inspect rendered DOM, report table with pass/fail/n/a.",
       "expectations": [
         "Reads https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/ before other APG work",
-        "Loads auditing-a11y and follows audit.md report shape",
+        "Loads a11y and follows audit.md report shape",
         "Does not fetch the APG example-index HTML",
         "Maps widgets using project-map and/or roles.md / properties.md",
         "Fetches only pattern URLs for widgets in scope",
@@ -49,9 +49,9 @@
     {
       "id": 5,
       "prompt": "Add a Panel component with a title and an icon-only close button. Ordinary React compose — no explicit audit ask.",
-      "expected_output": "Applies auditing-a11y on compose: reads Read Me First, follows compose.md (native semantics, name on icon button, no bad/dup ARIA). May also apply authoring-react for structure.",
+      "expected_output": "Applies a11y on compose: reads Read Me First, follows compose.md (native semantics, name on icon button, no bad/dup ARIA). May also apply authoring-react for structure.",
       "expectations": [
-        "Loads auditing-a11y for ordinary UI component compose",
+        "Loads a11y for ordinary UI component compose",
         "Reads APG Read Me First before writing markup/ARIA",
         "Gives the icon-only control an accessible name",
         "Does not sprinkle unnecessary role/aria-* (No ARIA better than Bad ARIA)",
@@ -73,7 +73,7 @@
       "prompt": "Create a plain HTML accordion. Consumer project has no a11y guide or cursor rules about accessibility.",
       "expected_output": "Applies this skill’s compose contract (Read Me First + compose.md) without asking which guideline source to use.",
       "expectations": [
-        "Applies auditing-a11y by default when no consumer a11y guidelines are found",
+        "Applies a11y by default when no consumer a11y guidelines are found",
         "Does not block on a guidelines-choice question when none exist",
         "Reads APG Read Me First before authoring the accordion"
       ]

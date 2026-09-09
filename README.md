@@ -14,9 +14,9 @@ npx skills add equinusocio/skills
 | --- | --- | --- |
 | [`authoring-react`](./skills/authoring-react) | [README](./skills/authoring-react/README.md) | Creating, editing, refactoring, or reviewing React/TS UI (components, hooks, JSX/TSX, props) |
 | [`authoring-css`](./skills/authoring-css) | [README](./skills/authoring-css/README.md) | Writing or changing stylesheets, CSS modules, nesting, selectors, colors, gradients, motion, `@property` |
-| [`auditing-a11y`](./skills/auditing-a11y) | [README](./skills/auditing-a11y/README.md) | Writing/editing UI (components, HTML, templates) **and** a11y / APG / ARIA / WCAG audit or keyboard/SR debug (any stack) |
+| [`a11y`](./skills/a11y) | [README](./skills/a11y/README.md) | Writing/editing UI (components, HTML, templates) **and** a11y / APG / ARIA / WCAG audit or keyboard/SR debug (any stack) |
 
-`authoring-react` + `authoring-css` + `auditing-a11y` can apply together (e.g. new component + CSS + a11y). `auditing-a11y` always loads on UI markup — not audit-only.
+`authoring-react` + `authoring-css` + `a11y` can apply together (e.g. new component + CSS + a11y). `a11y` always loads on UI markup — not audit-only.
 
 ## Install
 
@@ -27,7 +27,7 @@ npx skills add equinusocio/skills
 # one skill
 npx skills add equinusocio/skills --skill authoring-react
 npx skills add equinusocio/skills --skill authoring-css
-npx skills add equinusocio/skills --skill auditing-a11y
+npx skills add equinusocio/skills --skill a11y
 
 # list
 npx skills add equinusocio/skills --list
@@ -70,7 +70,7 @@ Skill still **loads from the task** (no `@`-mention). If the consumer repo alrea
 2. Follow project guidelines
 3. Mix (you specify)
 
-None found in the project → skill rules apply with no question. Same gate exists for `authoring-css` and `auditing-a11y`.
+None found in the project → skill rules apply with no question. Same gate exists for `authoring-css` and `a11y`.
 
 ## Repo layout
 

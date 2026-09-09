@@ -1,5 +1,5 @@
 ---
-name: auditing-a11y
+name: a11y
 description: >-
   Use when creating, editing, refactoring, or reviewing UI — components,
   templates, HTML, JSX/TSX, Vue/Angular/Svelte markup, or interactive controls —
@@ -11,7 +11,7 @@ description: >-
 license: MIT
 metadata:
   author: equinusocio
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # Accessibility (APG)
@@ -78,7 +78,7 @@ Compose: Read Me First + [`compose.md`](compose.md). Audit: Read Me First + [`au
 | “Skip Read Me First — simple button” | Forbidden — read it before ARIA / custom roles |
 | “Fetch example-index to browse patterns” | Forbidden — use [`project-map.md`](project-map.md) / [`roles.md`](roles.md) / [`properties.md`](properties.md) |
 | “Add role in source so it looks accessible” | Bad ARIA / cloak — native HTML or fulfill the role promise |
-| “Skip auditing-a11y on ordinary compose” | Hard contract — UI write always loads this skill |
+| “Skip a11y on ordinary compose” | Hard contract — UI write always loads this skill |
 | “Copy APG sample onto library Tabs/Dialog” | DS / framework owns widget chrome when it already emits it |
 | “Audit = list generic a11y tips” | Follow [`audit.md`](audit.md) report shape |
 
