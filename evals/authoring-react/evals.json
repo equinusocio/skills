@@ -149,6 +149,26 @@
         "Uses indexed access on the original props type (e.g. StackProps[\"padding\"]) and/or typeof / ComponentProps of the source component",
         "Named const arrow component with React.FC / FC and ComponentNameProps"
       ]
+    },
+    {
+      "id": 15,
+      "prompt": "Add a useLocalStorage hook under hooks/ that reads and writes a typed value. No JSX.",
+      "expected_output": "Hook in a kebab-case unit (folder + index.ts optional per layout rules) with a .ts file — not .tsx — since there is no JSX.",
+      "expectations": [
+        "Does not create a .tsx file when there is no JSX/React element to render",
+        "Uses .ts for the hook implementation",
+        "Still follows kebab-case naming / co-location / index export patterns when scaffolding a folder unit"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Create a formatDate utility in lib/utils and a ThemeProvider that returns JSX context. Scaffold both following filesystem conventions.",
+      "expected_output": "formatDate as .ts (no forced .tsx); ThemeProvider as .tsx because it returns JSX; both use kebab folders/index when treated as folder units.",
+      "expectations": [
+        "Utility/lib function uses .ts, not .tsx",
+        "Provider/hook/component that returns JSX uses .tsx",
+        "Does not force .tsx on non-UI modules just to match component layout"
+      ]
     }
   ]
 }

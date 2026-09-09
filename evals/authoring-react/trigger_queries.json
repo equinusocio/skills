@@ -36,6 +36,14 @@
     "should_trigger": true
   },
   {
+    "query": "Scaffold hooks/use-local-storage with index and a .ts hook — no JSX.",
+    "should_trigger": true
+  },
+  {
+    "query": "Add a plain formatDate helper under lib/utils as TypeScript, not a React component.",
+    "should_trigger": true
+  },
+  {
     "query": "Add default value for size prop on Avatar without breaking existing call sites.",
     "should_trigger": true
   },

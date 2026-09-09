@@ -132,13 +132,13 @@ Requires the [skills](https://skills.sh) CLI (`npx skills`). Skills land in the 
 
 Each skill is a thin **hub** (`SKILL.md`) plus **refs** the agent reads on demand.
 
-### `authoring-react` (v1.0.0)
+### `authoring-react` (v1.3.0)
 
 | File | Role |
 | --- | --- |
 | [`SKILL.md`](./skills/authoring-react/SKILL.md) | Hub: contract, router, out of scope |
 | [`authoring.md`](./skills/authoring-react/authoring.md) | Component shape, props, markup, handlers, `className` / `style` / `data-*` |
-| [`filesystem.md`](./skills/authoring-react/filesystem.md) | Kebab-case folders, `index.ts`, co-located CSS and subcomponents |
+| [`filesystem.md`](./skills/authoring-react/filesystem.md) | Component folders first; hooks/libs/utils same spirit — `.tsx` only when JSX |
 
 **Highlights:**
 
@@ -147,7 +147,7 @@ Each skill is a thin **hub** (`SKILL.md`) plus **refs** the agent reads on deman
 - Defaults in the parameter list; named handlers (no inline JSX callbacks)
 - CSS modules → `styles` import; plain CSS → side-effect import
 - Prefer `data-*` (`"true"` / `"false"` strings) + `dynamicStyle: React.CSSProperties`
-- Folder: `/my-component` with `index.ts`, `my-component.tsx`, optional module CSS and subcomponents
+- Folder: `/my-component` with `index.ts`, `my-component.tsx`, optional module CSS and subcomponents; hooks/libs use `.ts` when no JSX
 
 ### `authoring-css` (v1.3.0)
 

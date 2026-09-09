@@ -8,7 +8,7 @@ description: >-
 license: MIT
 metadata:
   author: equinusocio
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # React + TypeScript authoring
@@ -35,7 +35,7 @@ Read sibling refs **before** writing matching code:
 | When | Read |
 | --- | --- |
 | Creating or editing React components (JSX/TSX, props, wrappers) | [`authoring.md`](authoring.md) |
-| Scaffolding or moving component folders/files (`index.ts`, kebab folders, co-located css/subcomponents) | [`filesystem.md`](filesystem.md) |
+| Scaffolding or moving folders/files — components, hooks, libs, utils, providers (`index.ts`, kebab folders, `.ts` vs `.tsx`) | [`filesystem.md`](filesystem.md) |
 
 If the task mixes concerns, read every matching ref.
 
