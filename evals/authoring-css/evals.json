@@ -3,13 +3,14 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Write CSS module styles for a Stack component whose outermost wrapper needs a class. Include a nested Content child and a data-attr variant.",
-      "expected_output": "Root class .Stack matching the component name; nested .Content without a Stack_ prefix; native nesting with &[data-attr=…] for the variant; PascalCase class selectors.",
+      "prompt": "Write CSS module styles for a Stack component whose outermost wrapper needs a class. Include a Content child (DOM-nested under Stack) and a data-attr variant on Stack.",
+      "expected_output": "Root class .Stack matching the component name; .Content as a sibling top-level selector (not nested under .Stack); no Stack_ prefix; native nesting only for Stack’s own variants (&[data-attr=…]); PascalCase class selectors.",
       "expectations": [
         "Outermost wrapper class is .Stack (matches component name)",
-        "Child uses .Content nested under .Stack, not .Stack_Content or similar prefix",
+        "Child uses top-level .Content, not nested under .Stack and not .Stack_Content or similar prefix",
+        "Does not nest one first-level class selector inside another just because the DOM nests",
         "Classes use .PascalCase form (e.g. .MyClass)",
-        "Uses native CSS nesting (including & for attribute/state variants)"
+        "Uses native CSS nesting for that selector’s own attributes/states/media (e.g. &[data-attr=…])"
       ]
     },
     {
@@ -87,6 +88,17 @@
         "Hardcoded gradient colors use OKLCH or OKLAB (HDR formats preferred for interpolation)",
         "Does not use color-mix() to derive or adjust transparency from a variable or hardcoded color",
         "Uses relative colors (e.g. oklch(from var(--my-color) …) or oklab(from …))"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "IntroSection wraps Content in JSX. Style IntroSection with a data-attr variant, a min-width media query, and :where(:active, :focus-within). Style Content with :hover and :has(…):hover. Do not nest .Content inside .IntroSection.",
+      "expected_output": ".IntroSection and .Content are sibling top-level selectors; each nests only its own related rules (&[…], @media, &:hover, &:has…).",
+      "expectations": [
+        ".IntroSection and .Content are both top-level class selectors (siblings), not .IntroSection { .Content {…} }",
+        "IntroSection nests only its own related rules: &[data-attr], @media, &:where(:active, :focus-within)",
+        "Content nests only its own related rules: &:hover, &:has(…):hover",
+        "Uses & for parent-relative nesting inside each class block"
       ]
     }
   ]

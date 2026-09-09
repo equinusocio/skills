@@ -36,7 +36,11 @@
     "should_trigger": true
   },
   {
-    "query": "Style the Content child inside .Stack without a Stack_Content prefix.",
+    "query": "Style the Content child inside .Stack without a Stack_Content prefix — keep .Content top-level, not nested under .Stack.",
+    "should_trigger": true
+  },
+  {
+    "query": "Nest only IntroSection’s own &[data-attr] and @media — leave .Content as a sibling selector.",
     "should_trigger": true
   },
   {

@@ -22,15 +22,15 @@ Example: `stack.tsx` (`const Stack = () => {}`) → root class `.Stack`.
 }
 ```
 
-- CSS modules: **do not** prefix child classes with the component name (e.g. `.Stack_Content`). Name the element only; nest under the root class:
+- CSS modules: **do not** prefix child classes with the component name (e.g. `.Stack_Content`). Name the element only. Keep first-level class selectors as **siblings** — do **not** nest one class inside another just because the DOM nests:
 
 ```css
 .Stack {
   /* ... */
+}
 
-  & .Content {
-    /* ... */
-  }
+.Content {
+  /* ... */
 }
 ```
 
@@ -42,17 +42,29 @@ Example: `stack.tsx` (`const Stack = () => {}`) → root class `.Stack`.
 
 ## Nesting
 
-- Always use **native CSS nesting** and prefer the use of & to target parent element. DO not nest everything inside the parent class, but related attributes or variants of the same element
+- Always use **native CSS nesting**. Prefer `&` when the nested rule targets the parent selector.
+- Nest **only** rules that belong to that same selector: attribute variants, pseudo-classes/states, `:has` / `:is` / `:where` chains, `@media` / `@supports`, and other parent-relative selectors.
+- Do **not** nest other first-level class selectors inside a class block. DOM nesting ≠ CSS nesting. Even if `.Content` is inside `.IntroSection` in JSX, keep both as top-level siblings.
 
 ```css
-.MyComponentClass {
-  color: red;
+.IntroSection {
+  &[data-attr="true"] {}
 
-  &[data-attr="true"] {
-    color: blue;
-  }
+  @media (min-width: 30em) {}
+
+  &:where(:active, :focus-within) {}
 }
 
+.Content {
+  &:hover {}
+
+  &:has(...):hover {}
+}
+```
+
+- Parent-influenced child styling stays on the **child** block with a trailing `&` when needed:
+
+```css
 .Content {
   color: red;
 
@@ -60,7 +72,7 @@ Example: `stack.tsx` (`const Stack = () => {}`) → root class `.Stack`.
     color: blue;
   }
 
-  .MyComponentClass[data-attr="true"] &{
+  .MyComponentClass[data-attr="true"] & {
     color: cyan;
   }
 }
@@ -135,10 +147,10 @@ color: oklch(from var(--my-color) l calc(c + 0.2) h / 20%);
 
 - [ ] Classes `.PascalCase` (`.MyClass`)
 - [ ] Root class matches component name (`.Stack` for `Stack`)
-- [ ] Module children: element name only (`.Content`), nested — no `Component_` prefix
+- [ ] Module children: element name only (`.Content`) as top-level sibling — no `Component_` prefix; do not nest class-in-class for DOM structure
 - [ ] Modern CSS / Baseline or project browserslist; ask when unsure
 - [ ] Modern selectors (`:has`, `:is`, `:where`, …) when useful
-- [ ] Native nesting always
+- [ ] Native nesting always — only for that selector’s own variants/states/media/`&` rules, not other first-level classes
 - [ ] No prefixes autoprefixer can add
 - [ ] Shorthand for ≤5 values; longhand when shorthand would need >5 values
 - [ ] No useless `min-*-size: 0`

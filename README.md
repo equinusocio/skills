@@ -91,7 +91,7 @@ Each skill is a thin **hub** (`SKILL.md`) plus **refs** the agent reads on deman
 - Prefer `data-*` (`"true"` / `"false"` strings) + `dynamicStyle: React.CSSProperties`
 - Folder: `/my-component` with `index.ts`, `my-component.tsx`, optional module CSS and subcomponents
 
-### `authoring-css` (v1.2.0)
+### `authoring-css` (v1.3.0)
 
 | File | Role |
 | --- | --- |
@@ -101,8 +101,8 @@ Each skill is a thin **hub** (`SKILL.md`) plus **refs** the agent reads on deman
 **Highlights:**
 
 - PascalCase classes (`.MyClass`); root class matches component name (`.Stack` for `Stack`)
-- Module children: element name only (`.Content`), nested — no `Component_` prefix
-- Native CSS nesting; modern selectors (`:has`, `:is`, `:where`, …) when useful
+- Module children: element name only (`.Content`) as top-level siblings — no `Component_` prefix; do not nest class-in-class for DOM structure
+- Native CSS nesting only for that selector’s own variants/states/media/`&` rules; modern selectors (`:has`, `:is`, `:where`, …) when useful
 - Prefer Baseline / project browserslist; ask when target unclear
 - Hardcoded colors: OKLCH/OKLAB (esp. gradients); derive/alpha with relative colors — no `color-mix()`
 - Prefer shorthand (≤5 values); longhand only when shorthand would need >5 values; no autoprefixer-redundant prefixes
