@@ -48,6 +48,14 @@
     "should_trigger": true
   },
   {
+    "query": "Rewrite this TSX so imports, equality checks, and hooks deps match our JS/TS style conventions.",
+    "should_trigger": true
+  },
+  {
+    "query": "Clean up lint issues in Modal.tsx — prefer type imports, no non-null assertions, exhaustive-deps.",
+    "should_trigger": true
+  },
+  {
     "query": "Tighten the selectors in styles/button.css — specificity is too high.",
     "should_trigger": false
   },

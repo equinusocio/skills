@@ -8,7 +8,7 @@ description: >-
 license: MIT
 metadata:
   author: equinusocio
-  version: "1.4.0"
+  version: "1.5.0"
 ---
 
 # React + TypeScript authoring
@@ -22,6 +22,7 @@ Personal conventions for React and TypeScript UI code. Follow this skill wheneve
 3. **Consumer project guidelines** — before writing, check whether the consumer project already documents guidelines, best practices, style guides, lint/format conventions, or similar for this work:
    - **None found** → apply this skill’s rules.
    - **Found** → do **not** silently pick. Ask with structured UI (`AskQuestion` when available; otherwise clear numbered options) which source to follow for this task: this skill, the project guidelines, or a stated mix. Wait for the answer before coding.
+   - **Unclear or absent answer** and local project rules exist → follow the **local project rules** for that conflict.
 4. **Force majeure only** — skip or bend a rule when:
    - the user explicitly overrides it for this task, or
    - following it would break the project’s established import/type pattern or fail to compile.
@@ -35,6 +36,7 @@ Read sibling refs **before** writing matching code:
 | When | Read |
 | --- | --- |
 | Creating or editing React components (JSX/TSX, props, wrappers) | [`authoring.md`](authoring.md) |
+| Writing or editing JS/TS/JSX/TSX — syntax, imports, types, hooks, JSX lint-style constraints | [`style.md`](style.md) |
 | Scaffolding or moving folders/files — components, hooks, libs, utils, providers (`index.ts`, kebab folders, `.ts` vs `.tsx`) | [`filesystem.md`](filesystem.md) |
 
 If the task mixes concerns, read every matching ref.

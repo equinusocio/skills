@@ -48,6 +48,7 @@ Requires the [skills](https://skills.sh) CLI (`npx skills`).
 - **Consumer project guidelines gate:** before writing, agent checks whether *your* project already documents guidelines / style guides / lint rules for that work.
   - None found → follow this skill.
   - Found → agent asks which source to follow (this skill, project guidelines, or a mix) and waits.
+  - Unclear or absent answer and local rules exist → follow local project rules for that conflict.
 - **Force majeure:** skip or bend a rule only if you explicitly override for the task, or if following it would break the project’s established pattern / build.
 
 #### Conflict demo (what “auto-apply” means in an existing repo)

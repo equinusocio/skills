@@ -148,7 +148,7 @@ import './my-component.css'
 const MyComponent: React.FC = () => <div className="MyComponent" />
 ```
 
-For styling conventions, use the `authoring-css` skill when present.
+For styling conventions, use the `authoring-css` skill when present. For JS/TS/JSX syntax and lint-style constraints, see [`style.md`](style.md).
 
 ## TypeScript path aliases and imports
 

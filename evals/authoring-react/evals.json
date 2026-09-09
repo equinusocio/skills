@@ -169,6 +169,28 @@
         "Provider/hook/component that returns JSX uses .tsx",
         "Does not force .tsx on non-UI modules just to match component layout"
       ]
+    },
+    {
+      "id": 17,
+      "prompt": "Write a React TS helper that imports a Props type from ./types, compares a value to null, uses optional chaining, and has a useEffect with a dependency list.",
+      "expected_output": "Uses import type for type-only imports; ==/=== with null allowed via == null or ===; no ! non-null assertions; hooks deps complete; code follows style.md conventions.",
+      "expectations": [
+        "Type-only imports use import type (or inline type specifier)",
+        "No non-null assertion operator (!)",
+        "Uses ?? / ?. where appropriate instead of || / chained &&",
+        "useEffect dependency array is exhaustive for referenced values",
+        "Reads and applies style.md when writing JS/TS/React"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Add a Panel component. Consumer repo has ESLint/TS style rules that conflict with this skill’s style.md. Agent asked which source to follow; user reply is empty/unclear.",
+      "expected_output": "Falls back to consumer project local syntax/lint rules when the choice answer is unclear or absent.",
+      "expectations": [
+        "Detected conflict and asked which source to follow",
+        "On unclear or absent answer, uses local project rules (not this skill’s style.md alone)",
+        "Does not invent a silent mix without stating it"
+      ]
     }
   ]
 }

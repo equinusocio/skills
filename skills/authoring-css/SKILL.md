@@ -23,6 +23,7 @@ Personal conventions for CSS. Follow this skill whenever the task writes or chan
 3. **Consumer project guidelines** — before writing, check whether the consumer project already documents guidelines, best practices, style guides, lint/format conventions, or similar for this work:
    - **None found** → apply this skill’s rules.
    - **Found** → do **not** silently pick. Ask with structured UI (`AskQuestion` when available; otherwise clear numbered options) which source to follow for this task: this skill, the project guidelines, or a stated mix. Wait for the answer before coding.
+   - **Unclear or absent answer** and local project rules exist → follow the **local project rules** for that conflict.
 4. **Force majeure only** — skip or bend a rule when:
    - the user explicitly overrides it for this task, or
    - following it would break the project’s established CSS pattern or fail to build.

@@ -2,7 +2,7 @@
 
 Personal conventions for **React + TypeScript UI**. Auto-applies when creating, editing, refactoring, or reviewing components, hooks, JSX/TSX, or props.
 
-**Version:** 1.4.0 · **Hub:** [`SKILL.md`](./SKILL.md)
+**Version:** 1.5.0 · **Hub:** [`SKILL.md`](./SKILL.md)
 
 ```bash
 npx skills add equinusocio/skills --skill authoring-react
@@ -71,6 +71,7 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({
 | --- | --- |
 | [`SKILL.md`](./SKILL.md) | Hub: contract, router, out of scope |
 | [`authoring.md`](./authoring.md) | Component shape, props, markup, handlers, `className` / `style` / `data-*` |
+| [`style.md`](./style.md) | JS/TS/React syntax + lint-style authoring constraints |
 | [`filesystem.md`](./filesystem.md) | Component folders first; hooks/libs/utils same spirit — `.tsx` only when JSX |
 
 ## Highlights
@@ -81,6 +82,7 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({
 - CSS modules → `styles` import; plain CSS → side-effect import
 - Prefer `data-*` (`"true"` / `"false"` strings) + `dynamicStyle: React.CSSProperties`
 - Folder: `/my-component` with `index.ts`, `my-component.tsx`, optional module CSS and subcomponents; hooks/libs use `.ts` when no JSX
+- `style.md`: `import type`, no `!`, exhaustive-deps, JSX/TS constraints; project lint conflict → ask; unclear answer → local rules
 
 ## Out of scope
 
