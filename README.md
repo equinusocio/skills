@@ -19,6 +19,64 @@ npx skills add equinusocio/react-authoring-skills
 
 Both can apply in the same task (e.g. new component + co-located CSS).
 
+### Example output — `authoring-react`
+
+```tsx
+import type { ComponentPropsWithRef, CSSProperties, FC } from 'react'
+import { Stack, Text } from '@vira-ui/react'
+import clsx from 'clsx'
+import styles from './status-panel.module.css'
+
+export type StatusPanelProps = ComponentPropsWithRef<typeof Stack> & {
+  /** Emphasize the panel. @defaultValue false */
+  accent?: boolean
+}
+
+export const StatusPanel: FC<StatusPanelProps> = ({
+  accent = false,
+  className,
+  style,
+  children,
+  ...otherProps
+}) => {
+  const dynamicStyle: CSSProperties = {
+    ...style,
+    ...(accent && { '--status-panel-color': 'var(--global-primary)' }),
+  }
+
+  return (
+    <Stack
+      className={clsx(styles.StatusPanel, className)}
+      style={dynamicStyle}
+      data-accent={accent ? 'true' : 'false'}
+      gap="space-200"
+      {...otherProps}
+    >
+      <Text className={styles.Title}>Status</Text>
+      {children}
+    </Stack>
+  )
+}
+```
+
+### Example output — `authoring-css`
+
+```css
+.StatusPanel {
+  padding: var(--space-300);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  &[data-accent='true'] {
+    border-color: var(--status-panel-accent, var(--color-brand));
+  }
+}
+
+.Title {
+  color: oklch(from var(--color-foreground) l c h);
+}
+```
+
 ## Install
 
 ### All skills in this repo
