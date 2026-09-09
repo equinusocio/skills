@@ -4,11 +4,11 @@
     {
       "id": 1,
       "prompt": "Create a React TypeScript component MyPanel that wraps a div, accepts an optional title string (default \"Panel\"), and spreads remaining div props onto the outer div.",
-      "expected_output": "A named const arrow component typed with React.FC (or FC) and MyPanelProps extending ComponentPropsWithRef<'div'>, with defaults in the param list and residual props spread on the wrapper.",
+      "expected_output": "A named const arrow component typed with React.FC and MyPanelProps extending React.ComponentPropsWithRef<'div'>, with defaults in the param list and residual props spread on the wrapper.",
       "expectations": [
         "Component is a named const arrow function (not function declaration or default-only anonymous)",
-        "Component is annotated with React.FC<MyPanelProps> or FC<MyPanelProps>",
-        "MyPanelProps exists and extends React.ComponentPropsWithRef<'div'> (or ComponentPropsWithoutRef if ref is intentionally omitted)",
+        "Component is annotated with React.FC<MyPanelProps>",
+        "MyPanelProps exists and extends React.ComponentPropsWithRef<'div'> (or React.ComponentPropsWithoutRef if ref is intentionally omitted)",
         "Custom props on the props type have TSDoc describing them and @defaultValue matching the assigned default",
         "Props are destructured; unused props are spread onto the outer div",
         "title default is set in the destructuring parameter list"
@@ -17,11 +17,11 @@
     {
       "id": 2,
       "prompt": "Write a reusable IconButton that wraps a button element, takes a required label, and forwards ref plus other button props for use inside other components.",
-      "expected_output": "Exported IconButtonProps extending ComponentPropsWithRef<'button'>, named const FC component, label destructured, rest spread on button; ref passed as a normal prop (React 19).",
+      "expected_output": "Exported IconButtonProps extending React.ComponentPropsWithRef<'button'>, named const React.FC component, label destructured, rest spread on button; ref passed as a normal prop (React 19).",
       "expectations": [
         "export type IconButtonProps (or equivalent exported props type) for reuse/inference",
-        "Props type uses ComponentPropsWithRef<'button'>",
-        "const IconButton: React.FC<...> or FC<...> named arrow function",
+        "Props type uses React.ComponentPropsWithRef<'button'>",
+        "const IconButton: React.FC<...> named arrow function",
         "label is destructured; remaining props spread onto <button>",
         "No legacy React.forwardRef wrapper required; ref treated as a prop"
       ]
@@ -29,10 +29,10 @@
     {
       "id": 3,
       "prompt": "Add a thin wrapper OtherCard around an existing OtherComponent, typing props from typeof OtherComponent and adding an optional accent boolean.",
-      "expected_output": "Props type based on ComponentPropsWithRef<typeof OtherComponent> intersected with { accent?: boolean }, named FC const, destructure accent and spread the rest onto OtherComponent.",
+      "expected_output": "Props type based on React.ComponentPropsWithRef<typeof OtherComponent> intersected with { accent?: boolean }, named React.FC const, destructure accent and spread the rest onto OtherComponent.",
       "expectations": [
-        "Props type uses ComponentPropsWithRef<typeof OtherComponent> (or WithoutRef if appropriate)",
-        "Named const arrow component with FC annotation",
+        "Props type uses React.ComponentPropsWithRef<typeof OtherComponent> (or React.ComponentPropsWithoutRef if appropriate)",
+        "Named const arrow component with React.FC annotation",
         "accent destructured; other props spread to OtherComponent",
         "Spread order chosen deliberately relative to defaults/overrides"
       ]
@@ -40,9 +40,9 @@
     {
       "id": 4,
       "prompt": "Implement Badge as const Badge = () => … with className default \"badge\" merged so caller className can override the default when spread after.",
-      "expected_output": "FC-typed named const; className default in params; spread positioned so caller props override defaults where intended.",
+      "expected_output": "React.FC-typed named const; className default in params; spread positioned so caller props override defaults where intended.",
       "expectations": [
-        "Named const arrow function with React.FC or FC",
+        "Named const arrow function with React.FC",
         "Default for className (or equivalent) in parameter destructuring",
         "Spread placement documents override vs default behavior"
       ]
@@ -72,7 +72,7 @@
     {
       "id": 7,
       "prompt": "Write a Card that imports its CSS module as styles, uses a named handleClick (not inline) for onClick, and merges a CSS variable into style via a dynamicStyle React.CSSProperties object after destructuring style from props.",
-      "expected_output": "import styles from module css; named handler in body; style destructured; dynamicStyle typed CSSProperties passed to the element; no inline arrow in JSX.",
+      "expected_output": "import styles from module css; named handler in body; style destructured; dynamicStyle typed React.CSSProperties passed to the element; no inline arrow in JSX.",
       "expectations": [
         "CSS module imported as styles (default import)",
         "className uses styles.*",
@@ -132,12 +132,12 @@
     {
       "id": 13,
       "prompt": "Add AlertBanner with optional tone ('info' | 'warn', default 'info') and optional dismissible boolean (default false) on a div wrapper.",
-      "expected_output": "AlertBannerProps documents tone and dismissible with TSDoc and @defaultValue matching param-list defaults; FC const with defaults in destructuring.",
+      "expected_output": "AlertBannerProps documents tone and dismissible with TSDoc and @defaultValue matching param-list defaults; React.FC const with defaults in destructuring.",
       "expectations": [
         "Each custom prop on the props type has a TSDoc comment that describes it",
         "Each custom prop with a default includes @defaultValue with that default value",
         "@defaultValue values match the defaults in the parameter destructuring list",
-        "Named const arrow component with React.FC / FC and ComponentNameProps"
+        "Named const arrow component with React.FC and ComponentNameProps"
       ]
     },
     {
@@ -147,7 +147,7 @@
       "expectations": [
         "Does not redeclare the padding type (no hand-copied union/string)",
         "Uses indexed access on the original props type (e.g. StackProps[\"padding\"]) and/or typeof / ComponentProps of the source component",
-        "Named const arrow component with React.FC / FC and ComponentNameProps"
+        "Named const arrow component with React.FC and ComponentNameProps"
       ]
     },
     {

@@ -8,7 +8,7 @@ description: >-
 license: MIT
 metadata:
   author: equinusocio
-  version: "1.3.0"
+  version: "1.4.0"
 ---
 
 # React + TypeScript authoring

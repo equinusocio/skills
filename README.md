@@ -22,26 +22,26 @@ Both can apply in the same task (e.g. new component + co-located CSS).
 ### Example output — `authoring-react`
 
 ```tsx
-import type { ComponentPropsWithRef, CSSProperties, FC } from 'react'
+import React from 'react'
 import { Stack, Text } from '@vira-ui/react'
 import clsx from 'clsx'
 import styles from './status-panel.module.css'
 
-export type StatusPanelProps = ComponentPropsWithRef<typeof Stack> & {
+export type StatusPanelProps = React.ComponentPropsWithRef<typeof Stack> & {
   /** Emphasize the panel. @defaultValue false */
   accent?: boolean
 }
 
-export const StatusPanel: FC<StatusPanelProps> = ({
+export const StatusPanel: React.FC<StatusPanelProps> = ({
   accent = false,
   className,
   style,
   children,
   ...otherProps
 }) => {
-  const dynamicStyle: CSSProperties = {
+  const dynamicStyle: React.CSSProperties = {
     ...style,
-    ...(accent && { '--status-panel-color': 'var(--global-primary)' }),
+    ...(accent && { '--status-panel-accent': 'var(--color-brand)' }),
   }
 
   return (
@@ -132,7 +132,7 @@ Requires the [skills](https://skills.sh) CLI (`npx skills`). Skills land in the 
 
 Each skill is a thin **hub** (`SKILL.md`) plus **refs** the agent reads on demand.
 
-### `authoring-react` (v1.3.0)
+### `authoring-react` (v1.4.0)
 
 | File | Role |
 | --- | --- |
@@ -142,8 +142,8 @@ Each skill is a thin **hub** (`SKILL.md`) plus **refs** the agent reads on deman
 
 **Highlights:**
 
-- Named `const` arrow components typed with `React.FC` / `FC`
-- `ComponentNameProps` extending `ComponentPropsWithRef` / `WithoutRef` of the outer wrapper when spreading
+- Named `const` arrow components typed with `React.FC`
+- Utility types via `React.*` (`React.ComponentPropsWithRef`, `React.CSSProperties`, …) — no named imports from `'react'`
 - Defaults in the parameter list; named handlers (no inline JSX callbacks)
 - CSS modules → `styles` import; plain CSS → side-effect import
 - Prefer `data-*` (`"true"` / `"false"` strings) + `dynamicStyle: React.CSSProperties`

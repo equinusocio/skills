@@ -16,19 +16,35 @@ export const MyComponent = () => {
 }
 ```
 
-- Every component is typed with **`React.FC<>`** or **`FC<>`** (match the project’s import pattern) when they have props, with props passed to the generic. Otherwhise just `React.FC` or `FC`
+- Every component is typed with **`React.FC<>`** when they have props, with props passed to the generic. Otherwise just `React.FC`.
 
 ```tsx
+import React from 'react'
+
 const MyComponent: React.FC<MyComponentProps> = () => (
   // ...
 )
+```
+
+## React utility types
+
+- Prefer the **`React.`** namespace for React utility types — `React.FC`, `React.ComponentPropsWithRef`, `React.ComponentPropsWithoutRef`, `React.CSSProperties`, etc.
+- Use a single React import (`import React from 'react'` or `import * as React from 'react'`, matching the project). **Do not** named-import those utilities from `'react'` (avoids import clutter).
+
+```tsx
+// Prefer
+import React from 'react'
+const dynamicStyle: React.CSSProperties = {}
+
+// Avoid
+import type { CSSProperties, FC, ComponentPropsWithRef } from 'react'
 ```
 
 ## Props type
 
 - Every component has a **`ComponentNameProps`** type. Export it when the component is reused elsewhere or callers need to infer the original props; otherwise export is optional.
 - Prefer props that **extend the HTML (or component) props of the outermost wrapper** — the element/component that receives the props spread.
-- Use **`ComponentPropsWithRef`** / **`ComponentPropsWithoutRef`** as appropriate. In React 19, **`ref` is a normal prop** (no `forwardRef` required for that reason alone).
+- Use **`React.ComponentPropsWithRef`** / **`React.ComponentPropsWithoutRef`** as appropriate. In React 19, **`ref` is a normal prop** (no `forwardRef` required for that reason alone).
 - Props must always have a TSDoc comment that describes them and an `@defaultValue` marker with the default value assigned to the prop
 - When a prop’s type must be inferred from another type or inherited, do not redeclare it — use the original type if you have access. Example:
 
@@ -58,7 +74,7 @@ export type MyComponentProps = React.ComponentPropsWithRef<typeof OtherComponent
 }
 ```
 
-Use `ComponentPropsWithoutRef` when the wrapper must not accept `ref`.
+Use `React.ComponentPropsWithoutRef` when the wrapper must not accept `ref`.
 
 ## Destructuring and spread
 
@@ -218,11 +234,12 @@ Folder and file placement: see [`filesystem.md`](filesystem.md).
 ## Checklist
 
 - [ ] `const` named arrow function
-- [ ] `React.FC` / `FC` with props generic
+- [ ] `React.FC` with props generic
+- [ ] React utility types via `React.*` — no named imports (`FC`, `CSSProperties`, `ComponentPropsWithRef`, …)
 - [ ] `ComponentNameProps` (+ export if reuse/inference)
 - [ ] Custom props: TSDoc + `@defaultValue` matching assigned default
 - [ ] Prop types reused via indexed access / `typeof` — no redeclared copies
-- [ ] Extends `ComponentPropsWithRef` / `WithoutRef` of the outer wrapper when spreading
+- [ ] Extends `React.ComponentPropsWithRef` / `React.ComponentPropsWithoutRef` of the outer wrapper when spreading
 - [ ] Destructure + residual spread; spread order intentional
 - [ ] Defaults in param list when possible
 - [ ] Markup: `&&` for null branch; flat ternary otherwise
