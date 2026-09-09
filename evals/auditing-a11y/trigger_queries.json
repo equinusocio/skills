@@ -1,0 +1,98 @@
+[
+  {
+    "query": "Audit a11y on this settings screen — APG review for the tabs and dialog.",
+    "should_trigger": true
+  },
+  {
+    "query": "Is this accessible? Keyboard trap in the modal and no name on the icon button.",
+    "should_trigger": true
+  },
+  {
+    "query": "APG review of our Angular Material datepicker usage on the booking form.",
+    "should_trigger": true
+  },
+  {
+    "query": "WCAG widget check for the Vue combobox in ProductFilter.vue — screen-reader pattern debug.",
+    "should_trigger": true
+  },
+  {
+    "query": "Deep accessibility audit of this plain HTML accordion and disclosure.",
+    "should_trigger": true
+  },
+  {
+    "query": "Validate ARIA roles/states on the rendered DOM of our design-system Tabs.",
+    "should_trigger": true
+  },
+  {
+    "query": "Keyboard-pattern debug: arrow keys don't move focus in the menubar.",
+    "should_trigger": true
+  },
+  {
+    "query": "Run a structured APG audit against this React screen that uses Radix Dialog.",
+    "should_trigger": true
+  },
+  {
+    "query": "Check whether our custom Select matches the APG combobox pattern.",
+    "should_trigger": true
+  },
+  {
+    "query": "Screen-reader audit: toast announcements and live region status on checkout.",
+    "should_trigger": true
+  },
+  {
+    "query": "Add a Button component in src/components/Button.tsx that accepts a label and onClick.",
+    "should_trigger": true
+  },
+  {
+    "query": "What aria-label should this icon-only button use while I compose the toolbar?",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a plain HTML form with fieldset radios and a submit button.",
+    "should_trigger": true
+  },
+  {
+    "query": "Build a Vue dialog component with focus trap and accessible title.",
+    "should_trigger": true
+  },
+  {
+    "query": "Add an Angular template for tabs navigation on the settings page.",
+    "should_trigger": true
+  },
+  {
+    "query": "Scaffold a React Modal that opens from an IconButton.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tighten the selectors in styles/button.css — specificity is too high.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write a Node script in scripts/migrate.ts that reads JSON and writes to Postgres.",
+    "should_trigger": false
+  },
+  {
+    "query": "Update the README install section for this skills package.",
+    "should_trigger": false
+  },
+  {
+    "query": "Bump the authoring-css skill version in package metadata and changelog.",
+    "should_trigger": false
+  },
+  {
+    "query": "Generate an OpenAPI schema for the /users endpoint.",
+    "should_trigger": false
+  },
+  {
+    "query": "Scaffold hooks/use-local-storage with index and a .ts hook — no JSX.",
+    "should_trigger": false
+  },
+  {
+    "query": "Fix the Express middleware typing in server/middleware/auth.ts — no UI involved.",
+    "should_trigger": false
+  },
+  {
+    "query": "Rewrite defineProps types in a Vue SFC with no template/markup change.",
+    "should_trigger": false
+  }
+]

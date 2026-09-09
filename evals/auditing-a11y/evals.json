@@ -1,0 +1,131 @@
+{
+  "skill_name": "auditing-a11y",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit a11y for SettingsPage: it has Tabs, a modal Dialog, and an icon-only close button. Project uses React + a local DS under packages/ui.",
+      "expected_output": "Before patterns/report: reads APG Read Me First. Then structured APG audit: inventory, project-map/roles/properties, fetch only in-scope pattern URLs (never example-index), inspect rendered DOM, report table with pass/fail/n/a.",
+      "expectations": [
+        "Reads https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/ before other APG work",
+        "Loads auditing-a11y and follows audit.md report shape",
+        "Does not fetch the APG example-index HTML",
+        "Maps widgets using project-map and/or roles.md / properties.md",
+        "Fetches only pattern URLs for widgets in scope",
+        "Inspects rendered DOM / library output, not source alone",
+        "Report includes widget table and page-level landmarks/names notes"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "APG review of an Angular screen using mat-select and mat-dialog. User asks if we should copy APG sample role/aria-* onto the templates.",
+      "expected_output": "Read Me First first; maps Material widgets; refuses duplicate APG sample attrs on library-owned chrome; recommends props/API or page-level fixes.",
+      "expectations": [
+        "Reads APG Read Me First before recommending ARIA changes",
+        "Does not recommend copying APG sample role/aria-* onto library primitives that already emit chrome",
+        "Uses rendered DOM as source of truth",
+        "Routes widget fixes through project DS / framework API when chrome is library-owned"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Keyboard trap report on a Vue Modal. Agent starts browsing https://www.w3.org/WAI/ARIA/apg/example-index/ to pick patterns.",
+      "expected_output": "Stops — example-index forbidden; uses Read Me First + project-map/roles/properties tables as the index instead.",
+      "expectations": [
+        "Does not fetch or browse the APG example-index page",
+        "Uses skill folder tables (project-map / roles / properties) as the index"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Audit unknown custom <div role=\"combobox\"> markup in plain HTML — no design-system package.",
+      "expected_output": "Read Me First; roles.md/properties.md fallback; fetches combobox pattern only; compares keyboard/states/naming to rendered DOM.",
+      "expectations": [
+        "Reads APG Read Me First before pattern fetches",
+        "Uses roles.md / properties.md when no project component map row applies",
+        "Fetches the matching pattern page, not the example-index",
+        "Compares keyboard, roles/states, naming, focus to rendered DOM"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Add a Panel component with a title and an icon-only close button. Ordinary React compose — no explicit audit ask.",
+      "expected_output": "Applies auditing-a11y on compose: reads Read Me First, follows compose.md (native semantics, name on icon button, no bad/dup ARIA). May also apply authoring-react for structure.",
+      "expectations": [
+        "Loads auditing-a11y for ordinary UI component compose",
+        "Reads APG Read Me First before writing markup/ARIA",
+        "Gives the icon-only control an accessible name",
+        "Does not sprinkle unnecessary role/aria-* (No ARIA better than Bad ARIA)",
+        "Does not require a full audit.md report unless the user asked for an audit"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Accessibility audit of Checkout. Consumer repo has ACCESSIBILITY.md and eslint-plugin-jsx-a11y rules that conflict with this skill’s contract. No user override yet.",
+      "expected_output": "Before auditing/fixing, agent asks with structured UI (AskQuestion or numbered options) whether to follow this skill, the project guidelines, or a mix; does not silently choose.",
+      "expectations": [
+        "Detects consumer project a11y guidelines exist",
+        "Asks which source to follow before proceeding (AskQuestion UI or clear numbered options)",
+        "Does not silently apply only this skill or only project rules when both exist"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Create a plain HTML accordion. Consumer project has no a11y guide or cursor rules about accessibility.",
+      "expected_output": "Applies this skill’s compose contract (Read Me First + compose.md) without asking which guideline source to use.",
+      "expectations": [
+        "Applies auditing-a11y by default when no consumer a11y guidelines are found",
+        "Does not block on a guidelines-choice question when none exist",
+        "Reads APG Read Me First before authoring the accordion"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Audit fails because JSX has no aria-* on Tabs; agent recommends pasting APG sample attrs into source so the audit passes.",
+      "expected_output": "Rejects that path — Read Me First / No ARIA better than Bad ARIA; inspect rendered output; do not add attrs the DS already emits.",
+      "expectations": [
+        "Checks rendered DOM before concluding missing ARIA",
+        "Does not recommend adding role/aria-* solely to make the audit pass when chrome is already emitted",
+        "Follows rationalization counters / red flags in the skill"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Map our project’s Select, Switch, and Tooltip to APG before fetching. Stack is Svelte + bits-ui.",
+      "expected_output": "Read Me First; project-map workflow by widget kind; no fixed brand map; layout/decorative stay n/a.",
+      "expectations": [
+        "Discovers/maps against the consumer project components (not a fixed third-party brand map)",
+        "Maps Select→combobox, Switch→switch, Tooltip→tooltip (or equivalent rows)",
+        "Does not force APG widget patterns onto layout/decorative non-widgets"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Produce the final audit report for ProfileForm (fieldset radios, slider, landmarks).",
+      "expected_output": "Report markdown matching audit.md template after Read Me First; Scope, Patterns fetched, widget table, Page line, Do not add guidance.",
+      "expectations": [
+        "Report uses the audit.md shape (scope, patterns fetched, table, page, do-not-add)",
+        "Results are pass / fail / n/a with one-line notes",
+        "Separates page landmarks/status/focus from widget behavior the library owns"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Build a custom <div role=\"button\"> Place Order control with click handler only — no keyboard support planned.",
+      "expected_output": "Stops or rewrites per Read Me First: a role is a promise; prefer native <button> or fulfill keyboard behaviors; does not ship Bad ARIA.",
+      "expectations": [
+        "Reads APG Read Me First (role is a promise / No ARIA better than Bad ARIA)",
+        "Rejects role=\"button\" without keyboard behaviors, or uses native <button> instead",
+        "Does not treat decorative ARIA as safer than correct HTML"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Agent is about to write a Vue Dialog. It skips Read Me First and jumps straight to copying APG example markup.",
+      "expected_output": "Invalid — must read Read Me First first; then compose.md / project DS APIs; never paste APG samples as default.",
+      "expectations": [
+        "Requires reading https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/ before UI/ARIA authoring",
+        "Does not copy APG example markup as the default compose path"
+      ]
+    }
+  ]
+}

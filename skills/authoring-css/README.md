@@ -2,7 +2,7 @@
 
 Personal conventions for **CSS**. Auto-applies when writing or changing stylesheets, CSS modules, nesting, selectors, colors, gradients, motion, or `@property`.
 
-**Version:** 1.3.0 · **Hub:** [`SKILL.md`](./SKILL.md)
+**Version:** 1.3.0 · **Hub:** `[SKILL.md](./SKILL.md)`
 
 ```bash
 npx skills add equinusocio/skills --skill authoring-css
@@ -28,12 +28,18 @@ npx skills add equinusocio/skills --skill authoring-css
 }
 ```
 
+
+
 ## Contents
 
-| File | Role |
-| --- | --- |
-| [`SKILL.md`](./SKILL.md) | Hub: contract, router, out of scope |
-| [`authoring.md`](./authoring.md) | Classes, nesting, Baseline, colors, shorthand/longhand, motion, `@property` |
+
+| File                             | Role                                                                        |
+| -------------------------------- | --------------------------------------------------------------------------- |
+| `[SKILL.md](./SKILL.md)`         | Hub: contract, router, out of scope                                         |
+| `[authoring.md](./authoring.md)` | Classes, nesting, Baseline, colors, shorthand/longhand, motion, `@property` |
+
+
+
 
 ## Highlights
 
@@ -45,6 +51,8 @@ npx skills add equinusocio/skills --skill authoring-css
 - Prefer shorthand (≤5 values); longhand only when shorthand would need >5 values; no autoprefixer-redundant prefixes
 - Motion on performant props; `@property` in `*.props.css` imported from the component stylesheet
 
+
+
 ## Out of scope
 
-React component structure (use [`authoring-react`](../authoring-react/README.md)), SCSS/Less-only dialects, Tailwind class strings alone.
+React component structure (use `[authoring-react](../authoring-react/README.md)`), SCSS/Less-only dialects, Tailwind class strings alone.
