@@ -50,6 +50,25 @@ Requires the [skills](https://skills.sh) CLI (`npx skills`).
   - Found → agent asks which source to follow (this skill, project guidelines, or a mix) and waits.
 - **Force majeure:** skip or bend a rule only if you explicitly override for the task, or if following it would break the project’s established pattern / build.
 
+#### Conflict demo (what “auto-apply” means in an existing repo)
+
+Skill still **loads from the task** (no `@`-mention). If the consumer repo already has React conventions, agent does **not** silently pick — it surfaces the clash and waits.
+
+**Task:** “Add a `Panel` component”
+
+| Source | Rule |
+| --- | --- |
+| **Project** (`CONTRIBUTING.md` / `.cursor/rules`) | `export default function` components; `import { FC } from 'react'` |
+| **Skill** (`authoring-react`) | Named `const` + `React.FC`; `React.*` utility types — no named imports from `'react'` |
+
+**Agent asks before coding** (AskQuestion when available, else numbered options):
+
+1. Follow `authoring-react`
+2. Follow project guidelines
+3. Mix (you specify)
+
+None found in the project → skill rules apply with no question. Same gate exists for `authoring-css`.
+
 ## Repo layout
 
 ```

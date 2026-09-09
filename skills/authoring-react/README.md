@@ -10,6 +10,21 @@ npx skills add equinusocio/skills --skill authoring-react
 
 ← [All skills](../../README.md)
 
+## Conflict with project guidelines
+
+Auto-apply = skill matches the task. In a repo that **already** documents React conventions, agent asks before writing (does not silently override).
+
+**Task:** “Add a `Panel` component”
+
+| Source | Rule |
+| --- | --- |
+| **Project** (`CONTRIBUTING.md` / `.cursor/rules`) | `export default function` components; `import { FC } from 'react'` |
+| **This skill** | Named `const` + `React.FC`; `React.*` utility types — no named imports from `'react'` |
+
+**Agent asks** (AskQuestion or numbered options): (1) this skill · (2) project guidelines · (3) mix you specify — then waits.
+
+No project React guide → this skill applies with no question. Full contract: [root README](../../README.md#shared-hard-contract).
+
 ## Example output
 
 ```tsx
