@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Publishable skills authoring
 
-Consumer skills live under **`skills/<name>/`** in this repo. Distribute via `npx skills add equinusocio/react-authoring-skills`.
+Consumer skills live under **`skills/<name>/`** in this repo. Distribute via `npx skills add equinusocio/skills`.
 
 Editing skills? Follow Agent Skills checklist below.
 
@@ -18,15 +18,15 @@ Editing skills? Follow Agent Skills checklist below.
 4. Hub frontmatter: `name`, `description`, then `license: MIT` and `metadata` (`author`, `version` semver string).
 5. Hub body ~80–120 lines: router + hard contract + out of scope; refs are load-on-demand (“Read `foo.md` when …”).
 6. **Hard contract must include consumer-guidelines gate** (same wording across skills): default apply this skill; if the consumer project already documents guidelines / best practices / style guides / lint-format conventions for the work, ask with structured UI (`AskQuestion` when available; else numbered options) which source to follow for the task — this skill, project guidelines, or a stated mix — and wait before coding.
-7. Same change: update [README.md](README.md) Skills table when name/path/trigger changes; discipline skills need red-flag + rationalization tables.
+7. Same change: update root [README.md](README.md) Skills table **and** `skills/<name>/README.md` when name/path/trigger/version changes; discipline skills need red-flag + rationalization tables.
 8. Evals stay under `evals/<skill>/` — **never** under `skills/`.
 
 ## Before done
 
 - Diff description against `trigger_queries.json` (true triggers vs near-miss false).
 - Confirm hub frontmatter has `license: MIT` and `metadata.author` / `metadata.version`.
-- Confirm README install still cites `npx skills add equinusocio/react-authoring-skills`.
-- Keep hub thin; put deep guidance in sibling `.md` refs under the skill folder.
+- Confirm README install still cites `npx skills add equinusocio/skills`.
+- Keep hub thin; put deep guidance in sibling `.md` refs under the skill folder. Human docs go in `skills/<name>/README.md`, not in `SKILL.md`.
 
 ## Red flags — STOP
 

@@ -1,189 +1,67 @@
-# react-authoring-skills
+# skills
 
-Agent Skills for Cursor (and compatible agents) that encode personal conventions when authoring **React + TypeScript UI** and **CSS**.
-
-Once installed, skills **auto-apply from the task** — no need to `@`-mention or load them by hand. The agent matches the request (e.g. “add a Button component”, “fix panel.module.css”) and follows the matching skill.
-
-Distribute with:
+Personal [Agent Skills](https://skills.sh) for Cursor and compatible agents. Each skill auto-applies from the task — no `@`-mention required.
 
 ```bash
-npx skills add equinusocio/react-authoring-skills
+npx skills add equinusocio/skills
 ```
 
-## Skills at a glance
+[![skills.sh](https://skills.sh/b/equinusocio/skills)](https://skills.sh/equinusocio/skills)
 
-| Skill | Path | Triggers when… |
+## Skills
+
+| Skill | Docs | Triggers when… |
 | --- | --- | --- |
-| [`authoring-react`](./skills/authoring-react) | `skills/authoring-react` | Creating, editing, refactoring, or reviewing React/TS UI (components, hooks, JSX/TSX, props) |
-| [`authoring-css`](./skills/authoring-css) | `skills/authoring-css` | Writing or changing stylesheets, CSS modules, nesting, selectors, colors, gradients, motion, `@property` |
+| [`authoring-react`](./skills/authoring-react) | [README](./skills/authoring-react/README.md) | Creating, editing, refactoring, or reviewing React/TS UI (components, hooks, JSX/TSX, props) |
+| [`authoring-css`](./skills/authoring-css) | [README](./skills/authoring-css/README.md) | Writing or changing stylesheets, CSS modules, nesting, selectors, colors, gradients, motion, `@property` |
 
 Both can apply in the same task (e.g. new component + co-located CSS).
 
-### Example output — `authoring-react`
-
-```tsx
-import React from 'react'
-import { Stack, Text } from '@vira-ui/react'
-import clsx from 'clsx'
-import styles from './status-panel.module.css'
-
-export type StatusPanelProps = React.ComponentPropsWithRef<typeof Stack> & {
-  /** Emphasize the panel. @defaultValue false */
-  accent?: boolean
-}
-
-export const StatusPanel: React.FC<StatusPanelProps> = ({
-  accent = false,
-  className,
-  style,
-  children,
-  ...otherProps
-}) => {
-  const dynamicStyle: React.CSSProperties = {
-    ...style,
-    ...(accent && { '--status-panel-accent': 'var(--color-brand)' }),
-  }
-
-  return (
-    <Stack
-      className={clsx(styles.StatusPanel, className)}
-      style={dynamicStyle}
-      data-accent={accent ? 'true' : 'false'}
-      gap="space-200"
-      {...otherProps}
-    >
-      <Text className={styles.Title}>Status</Text>
-      {children}
-    </Stack>
-  )
-}
-```
-
-### Example output — `authoring-css`
-
-```css
-.StatusPanel {
-  padding: var(--space-300);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-
-  &[data-accent='true'] {
-    border-color: var(--status-panel-accent, var(--color-brand));
-  }
-}
-
-.Title {
-  color: oklch(from var(--color-foreground) l c h);
-}
-```
-
 ## Install
 
-### All skills in this repo
-
 ```bash
-npx skills add equinusocio/react-authoring-skills
+# all skills
+npx skills add equinusocio/skills
+
+# one skill
+npx skills add equinusocio/skills --skill authoring-react
+npx skills add equinusocio/skills --skill authoring-css
+
+# list
+npx skills add equinusocio/skills --list
+
+# local checkout
+npx skills add ./path/to/skills
 ```
 
-### One skill
-
-```bash
-npx skills add equinusocio/react-authoring-skills --skill authoring-react
-npx skills add equinusocio/react-authoring-skills --skill authoring-css
-```
-
-### List available skills
-
-```bash
-npx skills add equinusocio/react-authoring-skills --list
-```
-
-### Local checkout (development)
-
-```bash
-npx skills add ./path/to/react-authoring-skills
-```
-
-Requires the [skills](https://skills.sh) CLI (`npx skills`). Skills land in the agent’s skill path for the current user or project, depending on how you install.
+Requires the [skills](https://skills.sh) CLI (`npx skills`).
 
 ## How to use
 
 1. Install (above).
-2. Ask the agent to write or change React/TS UI and/or CSS as usual.
-3. The agent should load the skill automatically from the description triggers — **no** `/skill`, `@skill`, or “use authoring-react” required.
-4. Optional: name the skill explicitly if you want to force it (`authoring-react`, `authoring-css`).
+2. Work as usual — agent matches task to skill descriptions.
+3. Optional: name a skill explicitly to force it.
 
-### Hard contract (both skills)
+### Shared hard contract
 
 - Apply on **every** matching change — no opt-out for convenience.
-- **Consumer project guidelines gate:** before writing, the agent checks whether *your* project already documents guidelines / style guides / lint rules for that work.
+- **Consumer project guidelines gate:** before writing, agent checks whether *your* project already documents guidelines / style guides / lint rules for that work.
   - None found → follow this skill.
   - Found → agent asks which source to follow (this skill, project guidelines, or a mix) and waits.
 - **Force majeure:** skip or bend a rule only if you explicitly override for the task, or if following it would break the project’s established pattern / build.
-
-### Out of scope (reminders)
-
-| Skill | Does not cover |
-| --- | --- |
-| `authoring-react` | Non-UI TypeScript, Vue/Angular/Svelte, CSS conventions (use `authoring-css`) |
-| `authoring-css` | React component structure (use `authoring-react`), SCSS/Less-only dialects, Tailwind class strings alone |
-
-## What they contain
-
-Each skill is a thin **hub** (`SKILL.md`) plus **refs** the agent reads on demand.
-
-### `authoring-react` (v1.4.0)
-
-| File | Role |
-| --- | --- |
-| [`SKILL.md`](./skills/authoring-react/SKILL.md) | Hub: contract, router, out of scope |
-| [`authoring.md`](./skills/authoring-react/authoring.md) | Component shape, props, markup, handlers, `className` / `style` / `data-*` |
-| [`filesystem.md`](./skills/authoring-react/filesystem.md) | Component folders first; hooks/libs/utils same spirit — `.tsx` only when JSX |
-
-**Highlights:**
-
-- Named `const` arrow components typed with `React.FC`
-- Utility types via `React.*` (`React.ComponentPropsWithRef`, `React.CSSProperties`, …) — no named imports from `'react'`
-- Defaults in the parameter list; named handlers (no inline JSX callbacks)
-- CSS modules → `styles` import; plain CSS → side-effect import
-- Prefer `data-*` (`"true"` / `"false"` strings) + `dynamicStyle: React.CSSProperties`
-- Folder: `/my-component` with `index.ts`, `my-component.tsx`, optional module CSS and subcomponents; hooks/libs use `.ts` when no JSX
-
-### `authoring-css` (v1.3.0)
-
-| File | Role |
-| --- | --- |
-| [`SKILL.md`](./skills/authoring-css/SKILL.md) | Hub: contract, router, out of scope |
-| [`authoring.md`](./skills/authoring-css/authoring.md) | Classes, nesting, Baseline, colors, shorthand/longhand, motion, `@property` |
-
-**Highlights:**
-
-- PascalCase classes (`.MyClass`); root class matches component name (`.Stack` for `Stack`)
-- Module children: element name only (`.Content`) as top-level siblings — no `Component_` prefix; do not nest class-in-class for DOM structure
-- Native CSS nesting only for that selector’s own variants/states/media/`&` rules; modern selectors (`:has`, `:is`, `:where`, …) when useful
-- Prefer Baseline / project browserslist; ask when target unclear
-- Hardcoded colors: OKLCH/OKLAB (esp. gradients); derive/alpha with relative colors — no `color-mix()`
-- Prefer shorthand (≤5 values); longhand only when shorthand would need >5 values; no autoprefixer-redundant prefixes
-- Motion on performant props; `@property` in `*.props.css` imported from the component stylesheet
 
 ## Repo layout
 
 ```
 skills/
-  authoring-react/SKILL.md
-  authoring-react/authoring.md
-  authoring-react/filesystem.md
-  authoring-css/SKILL.md
-  authoring-css/authoring.md
+  <name>/SKILL.md      # hub (installed)
+  <name>/README.md     # human docs (this catalog links here)
+  <name>/*.md          # refs agent loads on demand
 evals/
-  authoring-react/
-  authoring-css/
+  <name>/              # trigger queries + eval prompts (not installed)
 ```
 
-- **`skills/<name>/`** — publishable Agent Skills (hub + refs).
-- **`evals/<name>/`** — trigger queries and eval prompts for skill quality (not installed as skills).
-
-Add more skills under `skills/<name>/` with matching `evals/<name>/` when contributing.
+Add skills under `skills/<name>/` with matching `evals/<name>/`.
 
 ## License
 
