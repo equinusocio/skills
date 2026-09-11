@@ -82,7 +82,7 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({
 - CSS modules → `styles` import; plain CSS → side-effect import
 - Prefer `data-*` (`"true"` / `"false"` strings) + `dynamicStyle: React.CSSProperties`
 - Folder: `/my-component` with `index.ts`, `my-component.tsx`, optional module CSS and subcomponents; hooks/libs use `.ts` when no JSX
-- `style.md`: `import type`, no `!`, exhaustive-deps, JSX/TS constraints; project lint conflict → ask; unclear answer → local rules
+- `style.md`: `import type`, export only consumer/reusable types, no `!`, exhaustive-deps, JSX/TS constraints; project lint conflict → ask; unclear answer → local rules
 
 ## Out of scope
 

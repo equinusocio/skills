@@ -42,7 +42,8 @@ import type { CSSProperties, FC, ComponentPropsWithRef } from 'react'
 
 ## Props type
 
-- Every component has a **`ComponentNameProps`** type. Export it when the component is reused elsewhere or callers need to infer the original props; otherwise export is optional.
+- Every component has a **`ComponentNameProps`** type. Export it when callers need it outside the module (reuse, inference, wrapping). Otherwise leave it unexported.
+- Do **not** export helper or file-internal types unless consumers need them, or they are already surfaced through other exported types (composition, indexed access, `typeof`, etc.). See also type-export guidance in [`style.md`](style.md).
 - Prefer props that **extend the HTML (or component) props of the outermost wrapper** — the element/component that receives the props spread.
 - Use **`React.ComponentPropsWithRef`** / **`React.ComponentPropsWithoutRef`** as appropriate. In React 19, **`ref` is a normal prop** (no `forwardRef` required for that reason alone).
 - Props must always have a TSDoc comment that describes them and an `@defaultValue` marker with the default value assigned to the prop
@@ -236,7 +237,7 @@ Folder and file placement: see [`filesystem.md`](filesystem.md).
 - [ ] `const` named arrow function
 - [ ] `React.FC` with props generic
 - [ ] React utility types via `React.*` — no named imports (`FC`, `CSSProperties`, `ComponentPropsWithRef`, …)
-- [ ] `ComponentNameProps` (+ export if reuse/inference)
+- [ ] `ComponentNameProps` (export only if callers need it; no unused internal type exports)
 - [ ] Custom props: TSDoc + `@defaultValue` matching assigned default
 - [ ] Prop types reused via indexed access / `typeof` — no redeclared copies
 - [ ] Extends `React.ComponentPropsWithRef` / `React.ComponentPropsWithoutRef` of the outer wrapper when spreading

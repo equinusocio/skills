@@ -44,6 +44,7 @@ import './panel.css'
 ## TypeScript
 
 - **`any` allowed** (`no-explicit-any` off) — still prefer precise types when easy.
+- **Export types sparingly:** export only types the consumer needs outside the module, or types that are useful to reuse elsewhere like the main type of a component. Keep file-internal types **unexported** unless required — or unless they are already surfaced through other exported types (composition, indexed access, `typeof`, etc.).
 - **No** non-null assertion (`!`). Prefer narrowing, defaults, or explicit checks.
 - **No** shadowing (including nested scopes). Use `typescript/no-shadow` discipline; classic `no-shadow` is off in favor of the TS rule.
 - Enum members **must** have initializers.
@@ -179,6 +180,7 @@ These are **off** or unrestricted — do not invent enforcement:
 ## Checklist
 
 - [ ] `import type` / `export type` where type-only
+- [ ] Export only consumer-needed / reusable types; keep file-internal types unexported
 - [ ] Import extensions: no ts/js; yes json/css/pcss
 - [ ] No `!` non-null assertions; no param reassign (except allowlist)
 - [ ] `===` (null `==` OK); yoda; no `else` after `return`
