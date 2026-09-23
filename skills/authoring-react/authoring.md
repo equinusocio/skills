@@ -43,7 +43,40 @@ import type { CSSProperties, FC, ComponentPropsWithRef } from 'react'
 ## Props type
 
 - Every component has a **`ComponentNameProps`** type. Export it when callers need it outside the module (reuse, inference, wrapping). Otherwise leave it unexported.
-- Do **not** export helper or file-internal types unless consumers need them, or they are already surfaced through other exported types (composition, indexed access, `typeof`, etc.). See also type-export guidance in [`style.md`](style.md).
+- Prefer exporting the **component props type** (`BadgeProps`) over satellite types (variant unions, option aliases, etc.). Consumers take nested pieces via indexed access: `BadgeProps['variant']`.
+- When a union (or other alias) appears **only once** on the props type, **inline it** — do not create a separate named type.
+
+```tsx
+// Prefer — union once; export only BadgeProps
+export type BadgeProps = React.ComponentPropsWithRef<"span"> & {
+  /**
+   * Visual status treatment.
+   * @defaultValue 'neutral'
+   */
+  variant?: "neutral" | "positive" | "negative";
+};
+
+export const Badge: React.FC<BadgeProps> = ({
+  children,
+  className,
+  variant = "neutral",
+  ...otherProps
+}) => (
+  <span {...otherProps} className={clsx(styles.Badge, className)} data-variant={variant}>
+    {children}
+  </span>
+);
+
+// Avoid — unnecessary ChipVariants alias + export
+export type ChipVariants = "neutral" | "positive" | "negative";
+
+export type BadgeProps = React.ComponentPropsWithRef<"span"> & {
+  variant?: ChipVariants;
+};
+```
+
+- If a separate alias is still useful inside the file (reused across several props/helpers), keep it **unexported**. Consumers reach it via the props type (`BadgeProps['variant']`), not a second public export.
+- Do **not** export helper or file-internal types unless consumers need them as a first-class public API, or they are already surfaced through other exported types (composition, indexed access, `typeof`, etc.). See also type-export guidance in [`style.md`](style.md).
 - Prefer props that **extend the HTML (or component) props of the outermost wrapper** — the element/component that receives the props spread.
 - Use **`React.ComponentPropsWithRef`** / **`React.ComponentPropsWithoutRef`** as appropriate. In React 19, **`ref` is a normal prop** (no `forwardRef` required for that reason alone).
 - Props must always have a TSDoc comment that describes them and an `@defaultValue` marker with the default value assigned to the prop
@@ -237,7 +270,8 @@ Folder and file placement: see [`filesystem.md`](filesystem.md).
 - [ ] `const` named arrow function
 - [ ] `React.FC` with props generic
 - [ ] React utility types via `React.*` — no named imports (`FC`, `CSSProperties`, `ComponentPropsWithRef`, …)
-- [ ] `ComponentNameProps` (export only if callers need it; no unused internal type exports)
+- [ ] `ComponentNameProps` (export only if callers need it; no satellite union/alias exports — use `Props['prop']`)
+- [ ] One-shot unions inlined on the prop; file-local aliases stay unexported
 - [ ] Custom props: TSDoc + `@defaultValue` matching assigned default
 - [ ] Prop types reused via indexed access / `typeof` — no redeclared copies
 - [ ] Extends `React.ComponentPropsWithRef` / `React.ComponentPropsWithoutRef` of the outer wrapper when spreading

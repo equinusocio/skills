@@ -191,6 +191,17 @@
         "On unclear or absent answer, uses local project rules (not this skill’s style.md alone)",
         "Does not invent a silent mix without stating it"
       ]
+    },
+    {
+      "id": 19,
+      "prompt": "Create a Badge span wrapper with an optional variant prop: \"neutral\" | \"positive\" | \"negative\" (default \"neutral\"). Callers may need the props type; they do not need a separate exported Variants alias.",
+      "expected_output": "Exported BadgeProps with the union inlined on variant (or an unexported local alias); no exported ChipVariants/BadgeVariants satellite type; consumers use BadgeProps['variant'] if needed.",
+      "expectations": [
+        "Exports BadgeProps (or ComponentNameProps) when callers need the type — not a separate exported Variants/union alias",
+        "Does not create and export a satellite type like ChipVariants when the union is used only once on the props type",
+        "Union is inlined on the prop, or kept as an unexported file-local alias",
+        "If a local alias exists, it is not exported; indexed access on props (e.g. BadgeProps[\"variant\"]) is the public path"
+      ]
     }
   ]
 }
