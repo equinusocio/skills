@@ -1,6 +1,15 @@
 # React components
 
-Apply whenever creating or editing React components.
+Apply whenever creating or editing React components (shape, props, markup, handlers).
+
+Load on demand — do **not** pull every sibling for every task:
+
+| Concern | Read |
+| --- | --- |
+| DOM / imperative escapes / third-party mount | [`dom.md`](dom.md) |
+| CSS imports, `className`, `dynamicStyle`, `data-*` | [`presentation.md`](presentation.md) |
+| JS/TS/JSX syntax constraints | [`style.md`](style.md) |
+| Folders / file placement | [`filesystem.md`](filesystem.md) |
 
 ## Shape
 
@@ -165,25 +174,6 @@ return (
 const myConst = condition ?? condition2
 ```
 
-## CSS imports
-
-- CSS modules: import as `styles`.
-- Plain CSS: side-effect import (no binding).
-
-```tsx
-import styles from './my-component.module.css'
-
-const MyComponent: React.FC = () => <div className={styles.MyClass} />
-```
-
-```tsx
-import './my-component.css'
-
-const MyComponent: React.FC = () => <div className="MyComponent" />
-```
-
-For styling conventions, use the `authoring-css` skill when present. For JS/TS/JSX syntax and lint-style constraints, see [`style.md`](style.md).
-
 ## TypeScript path aliases and imports
 
 - When TypeScript path aliases are configured in the project, always use them where applicable.
@@ -198,104 +188,6 @@ For styling conventions, use the `authoring-css` skill when present. For JS/TS/J
 
 - Keep React code performant for re-renders, loading, and data fetching.
 - Evaluate when to use `useMemo`, `useCallback`, `React.memo`, `useOptimistic`, `Suspense`, and similar — apply them when they reduce real cost, not by default everywhere. Prioritize performant UX (reactiveness) and optimistic loadings.
-
-## Stay inside React
-
-React owns the UI tree it renders. Prefer React’s model (props, state, refs, JSX events, effects) over escaping to raw DOM APIs on nodes React already manages. Imperative DOM is an **escape hatch**, not the default.
-
-### Forbidden on React-owned DOM
-
-Do **not** use these to find, mutate, or listen to elements that React renders (or should render):
-
-| Escape (avoid) | Prefer |
-| --- | --- |
-| `document.querySelector` / `querySelectorAll` | `useRef`, callback ref, `ref` prop |
-| `getElementById` / `getElementsBy*` / `closest` from globals | Ref to the node (or pass data via props/context) |
-| `element.addEventListener` / `removeEventListener` | JSX handlers (`onClick`, `onKeyDown`, …) + named functions in the body |
-| `element.classList.add/remove/toggle` | `className` (+ project merge util), or `data-*` + CSS |
-| `element.setAttribute` / `removeAttribute` / `element.style.* =` | JSX props, `dynamicStyle` / CSS variables (see below) |
-| `element.innerHTML` / `insertAdjacentHTML` | JSX children; `dangerouslySetInnerHTML` only when unavoidable |
-| `document.createElement` + `appendChild` / `removeChild` for UI | JSX / conditional render / keys / portals |
-| `ReactDOM.render` / `createRoot` into a node React already owns | Compose components; one root owns that subtree |
-| Reading the DOM to rediscover state React already has | Props, state, context, derived values |
-
-Also avoid: string refs, `findDOMNode`, `isMounted` (see [`style.md`](style.md)).
-
-```tsx
-// Avoid — leaves React’s lifecycle
-useEffect(() => {
-  document.querySelectorAll('.row').forEach((el) => {
-    el.addEventListener('click', onRowClick)
-    el.classList.toggle('is-open', isOpen)
-  })
-}, [isOpen])
-
-// Prefer — stay in React
-const panelRef = useRef<HTMLDivElement>(null)
-
-useEffect(() => {
-  panelRef.current?.focus()
-}, [isOpen])
-
-return (
-  <div
-    ref={panelRef}
-    className={clsx(styles.Panel, isOpen && styles.isOpen)}
-    data-open={isOpen ? 'true' : 'false'}
-    onClick={handleClick}
-  />
-)
-```
-
-### Correct React approaches
-
-- **UI from data:** render from props/state; re-render updates the DOM. Do not sync “truth” by mutating nodes by hand.
-- **Refs:** `useRef` / callback refs / `ref` as a prop (React 19) when you need the instance (focus, measure, scroll, third-party host node).
-- **Effects:** `useEffect` / `useLayoutEffect` for post-commit side effects tied to that ref or external system — with **cleanup**. Not for deriving render output.
-- **Lists:** `map` + stable `key`; do not query `.item` nodes to attach behavior.
-- **Portals:** `createPortal` to render outside the parent DOM node — not manual `appendChild` of React output.
-- **Forms:** controlled or uncontrolled React inputs (`value`/`onChange` or `defaultValue` + ref). Do not drive the form by hunting `form.elements` / querySelector unless integrating a non-React API.
-- **Visibility / branches:** conditional JSX (`&&`, ternary), not `display` / `hidden` toggled via DOM APIs when React can unmount or flip props instead.
-
-### Escape hatches (allowed when justified)
-
-Use refs + effects (cleanup required) only when React has no good declarative API:
-
-- Focus, selection, scroll, resize/measure (`getBoundingClientRect`, `ResizeObserver`)
-- Media, canvas, WebSocket, geolocation, and similar browser APIs
-- Third-party **non-React** libraries that require a mount node
-- Integrating with non-React legacy widgets
-
-Rules for escape hatches:
-
-1. Obtain the node via **ref**, never via global selectors into React’s tree.
-2. Create / update / tear down in an **effect**; return a cleanup that disposes listeners and library instances.
-3. Do **not** let the external code fight React over the same children/attributes React also controls.
-4. Prefer a thin host component (`ChartHost`, `MapHost`) so the escape hatch stays localized.
-
-```tsx
-const ChartHost: React.FC<ChartHostProps> = ({ data, ...otherProps }) => {
-  const hostRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = hostRef.current
-    if (!el) {
-      return
-    }
-
-    const chart = createThirdPartyChart(el, data)
-    return () => {
-      chart.destroy()
-    }
-  }, [data])
-
-  return <div ref={hostRef} {...otherProps} />
-}
-```
-
-### Mental check
-
-Before writing DOM API code inside a component/hook: “Does React already expose this via props, state, JSX events, refs, or portal?” If yes → use that. If no → ref + effect escape hatch, scoped and cleaned up.
 
 ## Event handlers
 
@@ -313,55 +205,7 @@ const MyComponent: React.FC<MyComponentProps> = ({
 }
 ```
 
-## className on the outer wrapper
-
-- If the outermost wrapper gets a CSS class: destructure `className` from props and apply it on that element.
-- If the project has a class-merge utility (`clsx`, `cn`, etc.), use it. Otherwise **do not** destructure `className` — let it pass through the spread.
-
-```tsx
-const MyComponent: React.FC<MyComponentProps> = ({
-  className,
-  ...otherProps
-}) => <div className={clsx(styles.MyComponent, className)} {...otherProps} />
-```
-
-## Dynamic `style` and custom attributes
-
-- Prefer controlling CSS via **custom HTML attributes** (`data-*`) and **`dynamicStyle`**.
-- When the component manipulates `style`: destructure it from props, build `dynamicStyle` as `React.CSSProperties`, pass it to the element.
-- **Never** put raw CSS properties (e.g. `color`, `padding`, `margin`, `transform`) in `dynamicStyle` or other dynamic inline styles — always set **CSS custom properties** (`--*`) and consume them in CSS with `var()`.
-- Decide `useMemo` (or not) when inline style identity would cause excess re-renders.
-- Place `...style` first or last deliberately (defaults vs consumer overwrite).
-
-```tsx
-const MyComponent: React.FC<MyComponentProps> = ({
-  style,
-  amount,
-  full,
-  ...otherProps
-}) => {
-  const dynamicStyle: React.CSSProperties = {
-    ...style,
-    ...(amount && !full && { '--vui-bleed-amount': `var(--space-${amount})` }),
-    // or ...style at the end to allow consumer overwrite
-  }
-
-  // [data-prop] is then used in css to customize style
-  return <div style={dynamicStyle} data-prop={prop1} {...otherProps} />
-}
-```
-
-## `data-*` attribute values
-
-- Custom HTML attributes (`data-*`) always receive the strings **`"true"`** or **`"false"`**.
-- Do **not** toggle attribute presence with booleans (`<div {...(bool && { "data-prop": bool })} />`).
-
-```tsx
-// data-prop becomes [data-prop="true"] or [data-prop="false"].
-<div style={dynamicStyle} data-prop={prop1} {...otherProps} />
-```
-
-Folder and file placement: see [`filesystem.md`](filesystem.md).
+Folder and file placement: see [`filesystem.md`](filesystem.md). Presentation (`className` / style / `data-*`): see [`presentation.md`](presentation.md). DOM escapes: see [`dom.md`](dom.md).
 
 ## Checklist
 
@@ -377,14 +221,10 @@ Folder and file placement: see [`filesystem.md`](filesystem.md).
 - [ ] Defaults in param list when possible
 - [ ] Markup: `&&` for null branch; flat ternary otherwise
 - [ ] Prefer `??` where applicable
-- [ ] CSS modules → `styles` import; plain CSS → side-effect import
 - [ ] Use configured TypeScript path aliases where applicable; otherwise recommend configuring them
 - [ ] Avoid deep imports; import through the relative `index` module when available
-- [ ] Outer wrapper `className`: merge with project util, else leave on spread
 - [ ] Prefer project tools over custom/extra scripting
 - [ ] Performance considered (memo / Suspense / etc. when warranted)
 - [ ] No inline callbacks in JSX — named handlers in body
-- [ ] Stay inside React: no `querySelector` / `getElementById` / `addEventListener` / `classList` / `innerHTML` / `createElement` on React-owned UI — use props, state, JSX events, refs, portals
-- [ ] Imperative DOM only as escape hatch: ref + effect + cleanup (third-party host, focus, measure, etc.)
-- [ ] Prefer `data-*` + `dynamicStyle: React.CSSProperties` (+ memo when needed); `dynamicStyle` sets only `--*` custom props, never raw CSS properties
-- [ ] `data-*` values are `"true"` / `"false"` strings, not booleans
+- [ ] Presentation rules when touching class/style/`data-*` → [`presentation.md`](presentation.md)
+- [ ] DOM / imperative rules when touching the DOM → [`dom.md`](dom.md)

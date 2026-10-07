@@ -78,7 +78,8 @@
         "className uses styles.*",
         "onClick (or similar) uses a named arrow in the component body, not an inline function in JSX",
         "style is destructured from props",
-        "dynamicStyle is typed React.CSSProperties and passed to style={dynamicStyle}"
+        "dynamicStyle is typed React.CSSProperties and passed to style={dynamicStyle}",
+        "Loads presentation.md for CSS import / className / dynamicStyle rules"
       ]
     },
     {
@@ -211,7 +212,8 @@
         "Does not use querySelector / querySelectorAll / getElementById / getElementsBy* to find React-rendered nodes",
         "Uses useRef (or callback ref / ref prop) to reach the DOM node when imperative access is required",
         "Open/closed or class changes go through React state/props and className (or data-*), not element.classList",
-        "Reads and applies the stay-inside-React guidance from authoring.md"
+        "Reads and applies the stay-inside-React guidance from dom.md",
+        "Loads dom.md for DOM/imperative concerns rather than the whole former monolithic authoring blob"
       ]
     },
     {

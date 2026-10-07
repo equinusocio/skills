@@ -142,7 +142,7 @@ for (const key in map) {
 - Prefer ES6 classes over `createClass` if classes appear; no `this` in SFCs.
 - React import in scope **not** required (modern JSX transform).
 - `display-name`, `jsx-key`, props spreading: not enforced here (keys still required for correctness when rendering lists).
-- **Stay inside React** for DOM access and events — no `querySelector` / imperative mutation on React-owned nodes; see [`authoring.md`](authoring.md) § Stay inside React.
+- **Stay inside React** for DOM access and events — no `querySelector` / imperative mutation on React-owned nodes; see [`dom.md`](dom.md).
 
 ```tsx
 <button type="button" disabled className={styles.Button} style={dynamicStyle}>
@@ -189,6 +189,6 @@ These are **off** or unrestricted — do not invent enforcement:
 - [ ] `??` / `?.` / optional chain; `**`; templates; shorthand
 - [ ] Hooks: rules-of-hooks + exhaustive-deps
 - [ ] JSX: boolean shorthand, self-closing, fragment syntax, `type` on button, no index keys
-- [ ] No DOM escapes on React-owned UI (`querySelector`, `addEventListener`, `classList`, …) — see authoring.md
+- [ ] No DOM escapes on React-owned UI (`querySelector`, `addEventListener`, `classList`, …) — see [`dom.md`](dom.md)
 - [ ] Async: no floating promises; `return await` / `async` on promise fns
 - [ ] Project lint conflict asked; unclear answer → local rules
