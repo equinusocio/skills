@@ -8,7 +8,7 @@ description: >-
 license: MIT
 metadata:
   author: equinusocio
-  version: "1.5.2"
+  version: "1.6.0"
 ---
 
 # React + TypeScript authoring
@@ -36,6 +36,7 @@ Read sibling refs **before** writing matching code:
 | When | Read |
 | --- | --- |
 | Creating or editing React components (JSX/TSX, props, wrappers) | [`authoring.md`](authoring.md) |
+| DOM access, events, class/style toggles, third-party mount nodes, or temptation to use `querySelector` / imperative DOM inside React | [`authoring.md`](authoring.md) § Stay inside React |
 | Writing or editing JS/TS/JSX/TSX — syntax, imports, types, hooks, JSX lint-style constraints | [`style.md`](style.md) |
 | Scaffolding or moving folders/files — components, hooks, libs, utils, providers (`index.ts`, kebab folders, `.ts` vs `.tsx`) | [`filesystem.md`](filesystem.md) |
 

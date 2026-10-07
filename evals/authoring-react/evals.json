@@ -202,6 +202,39 @@
         "Union is inlined on the prop, or kept as an unexported file-local alias",
         "If a local alias exists, it is not exported; indexed access on props (e.g. BadgeProps[\"variant\"]) is the public path"
       ]
+    },
+    {
+      "id": 20,
+      "prompt": "In Dialog.tsx, focus the close button when the dialog opens, and toggle a CSS class on the panel when isOpen changes.",
+      "expected_output": "Uses a React ref + effect (or autoFocus / focus management via React) for focus; drives open/class via props/state/className — no document.querySelector, querySelectorAll, getElementById, or classList mutation on React-owned DOM.",
+      "expectations": [
+        "Does not use querySelector / querySelectorAll / getElementById / getElementsBy* to find React-rendered nodes",
+        "Uses useRef (or callback ref / ref prop) to reach the DOM node when imperative access is required",
+        "Open/closed or class changes go through React state/props and className (or data-*), not element.classList",
+        "Reads and applies the stay-inside-React guidance from authoring.md"
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Wire a click handler and a data attribute on a React list item. Someone suggested document.querySelectorAll('.row').forEach and addEventListener — do it the React way.",
+      "expected_output": "Named onClick (or equivalent) on the element; data-* from props/JSX; list keyed with stable ids — no DOM queries or imperative addEventListener on React-managed elements.",
+      "expectations": [
+        "Uses JSX event props (onClick, etc.), not element.addEventListener on React-owned nodes",
+        "Does not select rows with querySelectorAll or similar for React-rendered lists",
+        "Attributes/classes come from JSX props (data-*, className), not setAttribute / classList",
+        "Named handler in the component body per existing authoring rules"
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "Mount a third-party chart library that needs a DOM node into ChartHost. Prefer staying in React’s lifecycle.",
+      "expected_output": "Ref on a host element; create/update/teardown the library inside useEffect (or useLayoutEffect) with cleanup; no createRoot/render into nodes React already owns; no document.createElement + appendChild for the React tree itself.",
+      "expectations": [
+        "Host node obtained via ref, not querySelector",
+        "Imperative library setup/teardown lives in an effect with cleanup",
+        "Does not call createRoot / ReactDOM.render on DOM React already manages",
+        "Does not build the React UI tree with document.createElement / appendChild"
+      ]
     }
   ]
 }

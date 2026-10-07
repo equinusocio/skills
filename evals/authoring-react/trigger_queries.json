@@ -56,6 +56,18 @@
     "should_trigger": true
   },
   {
+    "query": "Focus the dialog close button on open and toggle the panel class when isOpen changes — keep it in React, no querySelector.",
+    "should_trigger": true
+  },
+  {
+    "query": "Replace document.querySelectorAll('.row') and addEventListener with proper React event handlers in the list component.",
+    "should_trigger": true
+  },
+  {
+    "query": "Mount a third-party chart into a React host component using a ref and effect cleanup.",
+    "should_trigger": true
+  },
+  {
     "query": "Tighten the selectors in styles/button.css — specificity is too high.",
     "should_trigger": false
   },
