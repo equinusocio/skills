@@ -48,7 +48,8 @@
       "expected_output": "Transition/animation on transform (or similarly performant props) when viable; @property used for custom-prop animation.",
       "expectations": [
         "Prefers transform (or other performant props) over opacity/filter when an alternative exists",
-        "Uses @property when animating custom property values"
+        "Uses @property when animating custom property values",
+        "Loads motion.md for animation / @property guidance"
       ]
     },
     {
@@ -58,7 +59,8 @@
       "expectations": [
         "Creates my-component.props.css (kebab) beside the component for @property registrations",
         "Component .css imports the .props.css file",
-        "Defaults that cannot be set in @property (e.g. var()) are assigned on the component root class"
+        "Defaults that cannot be set in @property (e.g. var()) are assigned on the component root class",
+        "Loads motion.md for @property / props.css rules"
       ]
     },
     {
@@ -87,7 +89,8 @@
       "expectations": [
         "Hardcoded gradient colors use OKLCH or OKLAB (HDR formats preferred for interpolation)",
         "Does not use color-mix() to derive or adjust transparency from a variable or hardcoded color",
-        "Uses relative colors (e.g. oklch(from var(--my-color) …) or oklab(from …))"
+        "Uses relative colors (e.g. oklch(from var(--my-color) …) or oklab(from …))",
+        "Loads colors.md for hardcoded color / relative-color guidance"
       ]
     },
     {
